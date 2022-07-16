@@ -1,5 +1,6 @@
 .idea
 bin/*.exe
+bin/wbtpl
 local/*.csv
 local/*.html
-out/*.html
+out/*

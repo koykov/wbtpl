@@ -1,2 +1,2 @@
-ORG_NAME;ORG_SLUG;ORG_IDNO:ORG_ADDR:ORG_PHONE
-Company Name;company;1000000000000;"Country, city, street, ...";0777 111555
+ORG_NAME;ORG_SLUG;ORG_IDNO;ORG_ADDR;ORG_PHONE
+"Company Name";company;1000000000000;"Country, city, street, ...";"0777 111555"
