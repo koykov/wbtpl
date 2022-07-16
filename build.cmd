@@ -1,1 +1,1 @@
-go build -o bin/amprinttpl.exe .
+go build -o bin/wbtpl.exe .
