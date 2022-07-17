@@ -1,3 +1,3 @@
-module amprinttpl
+module wbtpl
 
 go 1.18

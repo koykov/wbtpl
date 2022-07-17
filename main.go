@@ -71,7 +71,7 @@ func main() {
 	for i := 0; i < len(rows); i++ {
 		row := rows[i]
 		for i := uint(0); i < *fday; i++ {
-			date := time.Now().AddDate(0, 0, int(i)).Format("2006-01-02")
+			date := time.Now().AddDate(0, 0, int(i))
 			if err = generate(row[0], row[1], row[2], row[3], row[4], date); err != nil {
 				log.Fatalln(err)
 			}
@@ -79,7 +79,7 @@ func main() {
 	}
 }
 
-func generate(org, slug, idno, addr, phone, date string) error {
+func generate(org, slug, idno, addr, phone string, date time.Time) error {
 	odir := filepath.Dir(*fdb)
 	odb := fmt.Sprintf("%s%s%s.csv", odir, ps, slug)
 	f, err := os.Open(odb)
@@ -88,7 +88,7 @@ func generate(org, slug, idno, addr, phone, date string) error {
 	}
 	defer func() { _ = f.Close() }()
 
-	outdir := fmt.Sprintf("%s%s%s%s%s", *fout, ps, slug, ps, date)
+	outdir := fmt.Sprintf("%s%s%s%s%s", *fout, ps, slug, ps, date.Format("2006-01-02"))
 	if err = os.MkdirAll(outdir, 0755); err != nil {
 		return err
 	}
@@ -116,9 +116,9 @@ func generate(org, slug, idno, addr, phone, date string) error {
 		buf = bytes.ReplaceAll(buf, bOrgPhone, []byte(phone))
 		buf = bytes.ReplaceAll(buf, bSeria, []byte(row[0]))
 		buf = bytes.ReplaceAll(buf, bNumber, []byte(row[1]))
-		buf = bytes.ReplaceAll(buf, bDateDay, []byte(time.Now().Format("2")))
-		buf = bytes.ReplaceAll(buf, bDateMonth, []byte(time.Now().Format("1")))
-		buf = bytes.ReplaceAll(buf, bDateYear, []byte(time.Now().Format("2006")))
+		buf = bytes.ReplaceAll(buf, bDateDay, []byte(date.Format("2")))
+		buf = bytes.ReplaceAll(buf, bDateMonth, []byte(date.Format("1")))
+		buf = bytes.ReplaceAll(buf, bDateYear, []byte(date.Format("2006")))
 		buf = bytes.ReplaceAll(buf, bCarModel, []byte(row[2]))
 		buf = bytes.ReplaceAll(buf, bCarNumber, []byte(row[3]))
 		buf = bytes.ReplaceAll(buf, bDriver, []byte(row[4]))
